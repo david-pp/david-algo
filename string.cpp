@@ -218,6 +218,46 @@ void sort_by_msd(std::vector<std::string> &a, int lo, int hi, int d) {
 
 //////////////////////////////////////////////////////////////
 
+
+std::vector<std::string> urls = {
+        "edu.princeton.cs",
+        "com.apple",
+        "edu.princeton.cs",
+        "com.cnn",
+        "com.google",
+        "edu.uva.cs",
+        "edu.princeton.cs",
+        "edu.princeton.cs.www",
+        "edu.uva.cs",
+        "edu.uva.cs",
+        "edu.uva.cs",
+        "com.adobe",
+        "edu.princeton.ee"
+};
+
+
+void sort_by_quick3(std::vector<std::string> &a, int lo, int hi, int d) {
+    if (hi <= lo) return;
+
+    int lt = lo;
+    int gt = hi;
+    int v = a[lo][d];
+    int i = lo + 1;
+
+    while (i <= gt) {
+        int t = a[i][d];
+        if (t < v) std::swap(a[lt++], a[i++]);
+        else if (t > v) std::swap(a[i], a[gt--]);
+        else i++;
+    }
+
+    sort_by_quick3(a, lo, lt - 1, d);
+    if (v >= 0) sort_by_quick3(a, lt, gt, d + 1);
+    sort_by_quick3(a, gt + 1, hi, d);
+}
+
+//////////////////////////////////////////////////////////////
+
 int main(int argc, char *argv[]) {
 //    sort_by_index(items, sizeof(items) / sizeof(Item));
 //    print_items();
@@ -225,6 +265,11 @@ int main(int argc, char *argv[]) {
 //    sort_by_lsd(licenses, licenses[0].length());
 //    print_lincenses();
 
-    sort_by_msd(words, 0, words.size() - 1, 0);
-    print_words();
+//    sort_by_msd(words, 0, words.size() - 1, 0);
+//    print_words();
+
+    sort_by_quick3(urls, 0, urls.size() - 1, 0);
+    for (auto &e : urls) {
+        std::cout << e << std::endl;
+    }
 }
