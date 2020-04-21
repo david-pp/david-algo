@@ -4,3 +4,5 @@ project(algo)
 add_executable(sorting sorting.cpp)
 
 add_executable(string string.cpp)
+
+add_executable(string-tries string-tries.cpp)
